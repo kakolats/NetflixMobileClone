@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:netflix/repositories/data_repository.dart';
 import 'package:netflix/ui/screens/home_screen.dart';
+import 'package:netflix/ui/screens/loading_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: ((context)=>DataRepository()),
+    child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Netflix',
       theme: ThemeData(
       ),
-      home: const HomeScreen(),
+      home: LoadingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
