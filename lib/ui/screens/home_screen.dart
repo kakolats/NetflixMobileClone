@@ -23,24 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCinema();
-    getBientot();
   }
   
-  void getCinema(){
-    ApiService().getPlayingMovies(pageNumber: 1).then((movies) => {
-      setState(() {
-        cinema=movies;
-      })
-    });
-  }
-  void getBientot(){
-    ApiService().getUpcomingMovies(pageNumber: 1).then((movies) => {
-      setState(() {
-        bientot=movies;
-      })
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.amber,
                 child: dataProvider.popularMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                Image.network(dataProvider.popularMovieList[index].posterUrl(),
-                fit: BoxFit.cover,),
+                MovieCard(movie: dataProvider.popularMovieList[index]),
               )),
             )
           ),
@@ -106,10 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 250,
                 margin: const EdgeInsets.only(right: 10),
                 color: Colors.amber,
-                child: cinema==null
+                child: dataProvider.playingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                Image.network(cinema![index].posterUrl(),
-                fit: BoxFit.cover,),
+                MovieCard(movie: dataProvider.playingMovieList[index]),
               )),
             )
           ),
@@ -133,10 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 120,
                 margin: const EdgeInsets.only(right: 10),
                 color: Colors.amber,
-                child: bientot==null
+                child: dataProvider.upcomingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                Image.network(bientot![index].posterUrl(),
-                fit: BoxFit.cover,),
+                MovieCard(movie: dataProvider.upcomingMovieList[index]),
               )),
             )
           ),
@@ -160,10 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 120,
                 margin: const EdgeInsets.only(right: 10),
                 color: Colors.amber,
-                child: bientot==null
+                child: dataProvider.upcomingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                Image.network(bientot![index].posterUrl(),
-                fit: BoxFit.cover,),
+                MovieCard(movie: dataProvider.upcomingMovieList[index]),
               )),
             )
           )

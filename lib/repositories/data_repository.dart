@@ -7,8 +7,18 @@ import 'package:provider/provider.dart';
 class DataRepository with ChangeNotifier{
   final ApiService apiService = new ApiService();
   final List<Movie> _popularMovieList = []; 
+  final List<Movie> _playingMovieList = []; 
+  final List<Movie> _upcomingMovieList = [];
+
   int _popularMovieIndex = 1;
+  int _playingMovieIndex = 1;
+  int _upcomingMovieIndex = 1;
+
+
   List<Movie> get popularMovieList => _popularMovieList;
+  List<Movie> get playingMovieList => _playingMovieList;
+  List<Movie> get upcomingMovieList => _upcomingMovieList;
+
   Future<void> getPopularMovies() async{
     try{
       List<Movie> movies = await apiService.getPopularMovies(pageNumber: _popularMovieIndex);
@@ -21,7 +31,33 @@ class DataRepository with ChangeNotifier{
     }
   }
 
+  Future<void> getPlayingMovies() async{
+    try{
+      List<Movie> movies = await apiService.getPlayingMovies(pageNumber: _playingMovieIndex);
+      _playingMovieList.addAll(movies);
+      _playingMovieIndex++;
+        notifyListeners();
+    }on Response catch(response){
+      print("Erreur ${response.statusCode}");
+      rethrow;
+    }
+  }
+
+  Future<void> getUpcomingMovies() async{
+    try{
+      List<Movie> movies = await apiService.getUpcomingMovies(pageNumber: _upcomingMovieIndex);
+      _upcomingMovieList.addAll(movies);
+      _upcomingMovieIndex++;
+        notifyListeners();
+    }on Response catch(response){
+      print("Erreur ${response.statusCode}");
+      rethrow;
+    }
+  }
+
   Future<void> initData() async{
     await getPopularMovies();
+    await getPlayingMovies();
+    await getUpcomingMovies();
   }
 }

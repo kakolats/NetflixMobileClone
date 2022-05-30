@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix/repositories/data_repository.dart';
 import 'package:netflix/ui/screens/home_screen.dart';
 import 'package:netflix/ui/screens/loading_screen.dart';
+import 'package:netflix/ui/screens/movie_details_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Netflix',
       theme: ThemeData(
       ),
-      home: LoadingScreen(),
+      home: MovieDetailsScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
