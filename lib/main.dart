@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Netflix',
       theme: ThemeData(
       ),
-      home: MovieDetailsScreen(),
+      home: LoadingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -6,28 +6,20 @@ class Movie {
   final int id;
   final String name;
   final String description;
+  final double popularity;
+  final String releaseDate;
   final String? posterPath;
   Movie({
     required this.id,
     required this.name,
     required this.description,
+    required this.popularity,
+    required this.releaseDate,
     this.posterPath,
   });
   
 
-  Movie copyWith({
-    int? id,
-    String? name,
-    String? description,
-    String? posterPath,
-  }) {
-    return Movie(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      posterPath: posterPath ?? this.posterPath,
-    );
-  }
+  
 
   
 
@@ -36,7 +28,9 @@ class Movie {
       id: map['id'] as int,
       name: map['title'] as String,
       description: map['overview'] as String,
-      posterPath: map['poster_path'],
+      popularity: map['vote_average']*10.0 as double,
+      releaseDate: map['release_date'] as String,
+      posterPath: map['poster_path']
     );
   }
 

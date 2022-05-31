@@ -4,6 +4,8 @@ import 'package:netflix/models/movies.dart';
 import 'package:netflix/repositories/data_repository.dart';
 import 'package:netflix/services/api_service.dart';
 import 'package:netflix/shared/constants.dart';
+import 'package:netflix/ui/screens/details_loading_screen.dart';
+import 'package:netflix/ui/screens/movie_details_screen.dart';
 import 'package:netflix/ui/widgets/movie_card.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //List<Movie>? movies;
-  List<Movie>? cinema;
-  List<Movie>? bientot;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,7 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 500,
             child: dataProvider.popularMovieList.isEmpty
             ?const Center(child: Text("Indisponibilite du service"))
-            :MovieCard(movie: dataProvider.popularMovieList[0])
+            :GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsLoadingScreen(movie: dataProvider.popularMovieList[0]))
+                    );
+                  },
+                  child: MovieCard(movie: dataProvider.popularMovieList[0])
+                ),
           ),
           const SizedBox(
             height: 15,
@@ -65,7 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.amber,
                 child: dataProvider.popularMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                MovieCard(movie: dataProvider.popularMovieList[index]),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsLoadingScreen(movie: dataProvider.popularMovieList[index]))
+                    );
+                  },
+                  child: MovieCard(movie: dataProvider.popularMovieList[index])
+                ),
               )),
             )
           ),
@@ -91,7 +104,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.amber,
                 child: dataProvider.playingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                MovieCard(movie: dataProvider.playingMovieList[index]),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsLoadingScreen(movie: dataProvider.playingMovieList[index]))
+                    );
+                  },
+                  child: MovieCard(movie: dataProvider.playingMovieList[index])
+                ),
               )),
             )
           ),
@@ -117,7 +137,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.amber,
                 child: dataProvider.upcomingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                MovieCard(movie: dataProvider.upcomingMovieList[index]),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsLoadingScreen(movie: dataProvider.upcomingMovieList[index]))
+                    );
+                  },
+                  child: MovieCard(movie: dataProvider.upcomingMovieList[index])
+                ),
               )),
             )
           ),
@@ -143,7 +170,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.amber,
                 child: dataProvider.upcomingMovieList.isEmpty
                 ?const Center(child: Text("Indisponibilite du service"),):
-                MovieCard(movie: dataProvider.upcomingMovieList[index]),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DetailsLoadingScreen(movie: dataProvider.upcomingMovieList[index]))
+                    );
+                  },
+                  child: MovieCard(movie: dataProvider.upcomingMovieList[index])
+                ),
               )),
             )
           )

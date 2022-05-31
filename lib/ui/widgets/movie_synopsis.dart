@@ -4,25 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:netflix/shared/constants.dart';
 
 class MovieSynopsis extends StatelessWidget {
-  const MovieSynopsis({ Key? key }) : super(key: key);
+  final String description;
+  const MovieSynopsis({ Key? key, required this.description  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: akolPrimaryColor,
-      height: 200,
       width: 360,
       padding: EdgeInsets.only(top: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Synopsis",
-          style: TextStyle(
-            fontSize: 16
+          Text("SYNOPSIS",
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.bold
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Container(
-            child: Text("Synopsis"),
+            child: Text("$description",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.left,
+            ),
           )
         ],
       )

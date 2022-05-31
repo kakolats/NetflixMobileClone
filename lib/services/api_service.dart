@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:netflix/models/acteur.dart';
 import 'package:netflix/models/movies.dart';
 import 'package:netflix/services/api.dart';
 
@@ -72,5 +73,24 @@ class ApiService{
       throw response;
     }
   }
+
+  Future<List<Acteur>> getCast({required int movieId}) async{
+    //print(movieId);
+    Response response  = await getData("movie/$movieId/credits");
+    if(response.statusCode==200){
+      Map data = response.data;
+      //print(data);
+      List<dynamic> results = data["cast"];
+      List<Acteur> acteurs = [];
+      for(dynamic json in results){
+        Acteur acteur = Acteur.fromJson(json);
+        acteurs.add(acteur);
+      }
+      return acteurs;
+    }else{
+      throw response;
+    }
+  }
+
   
 }

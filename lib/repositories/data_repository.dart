@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:netflix/models/acteur.dart';
 import 'package:netflix/models/movies.dart';
 import 'package:netflix/services/api_service.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +11,17 @@ class DataRepository with ChangeNotifier{
   final List<Movie> _playingMovieList = []; 
   final List<Movie> _upcomingMovieList = [];
 
+  final List<Acteur> _castList = [];
+
   int _popularMovieIndex = 1;
   int _playingMovieIndex = 1;
   int _upcomingMovieIndex = 1;
-
+  int _castIndex = 1;
 
   List<Movie> get popularMovieList => _popularMovieList;
   List<Movie> get playingMovieList => _playingMovieList;
   List<Movie> get upcomingMovieList => _upcomingMovieList;
+  List<Acteur> get castList => _castList;
 
   Future<void> getPopularMovies() async{
     try{
@@ -59,5 +63,21 @@ class DataRepository with ChangeNotifier{
     await getPopularMovies();
     await getPlayingMovies();
     await getUpcomingMovies();
+  }
+
+  Future<void> getCastActeurs(Movie movie) async{
+    try{
+      List<Acteur> acteurs = await apiService.getCast(movieId: movie.id);
+      _castList.addAll(acteurs);
+      _castIndex++;
+        notifyListeners();
+    }on Response catch(response){
+      print("Erreur ${response.statusCode}");
+      rethrow;
+    }
+  }
+
+  Future<void> initDetails(Movie movie)async{
+    await getCastActeurs(movie);
   }
 }
